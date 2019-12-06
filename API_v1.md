@@ -32,13 +32,17 @@ The `serverTimeStamp` field can be stored for later use in data queries, as the 
 
 Parameters:
 
-> required: token
+> required String: username
+>
+> required String: password
 
 Response Object:
 
 |Field|Type|Description|
 |-----|----|-----------|
 |token|String|The token to use in subsequent calls for this user|
+
+The token lifespan will be set to 24 hours.
 
 Other fields returned are described in the following entry point response object.
 
@@ -48,9 +52,9 @@ Other fields returned are described in the following entry point response object
 > /api/query/profile
 
 Parameters:
-> required: token
+> required String: token
 > 
-> optional: projectId
+> optional Integer: projectId
 
 Response Object:
 
@@ -70,7 +74,7 @@ Response Object:
 |speciesNaming|String|The preferred naming convnetion (commonName\|scientificName)|
 |speciesSortBy|String|The preferred sorting field (alphabetic\|checklistDefault|)|
 |lang|String|The preferred language|
-|excludeNonBreeding|String|Only present if projectId provided: wheter to exclude non-breeding species in regions|
+|excludeNonBreeding|String|Only present if projectId provided: whether to exclude non-breeding species in regions|
 |excludeRare|String|Only present if projectId provided: whether to exclude rare species regions|
 |checklist|String|Only present if projectId provided: the checklist that will be used to deliver species names|
 
@@ -78,7 +82,7 @@ Response Object:
 
 ## Error Responses ##
 
-In the evennt of an error in the API, the following JSON structure will be returned:
+In the event of an error in the API, the following JSON structure will be returned:
 
 |Field|Type|Description|
 |-----|----|-----------|
@@ -92,22 +96,35 @@ A list of current error codes / messages can be pulled from here:
 
 ## Data Querying ##
 
-All results are returned as 'data frames', suitable for R client parsing / management.
+
+All data queries require a token parameter, returned earlier by the Authentication entrypoint.
+
+All results are returned as JSON objects, suitable for processing as 'data frames'.
 
 
 
 
 ### Projects ###
 
-Return a list of projects that allow public participation, along with protocols
+Return a list of Dendroica projects.
 
 > /api/projects
 
+|Field|Type|Description|
+|-----|----|-----------|
+|id|Integer|Project id for use in subsequent calls|
+|name|String|Projetc name|
+|description|String|Project description|
+|masterRegionId|Integer|The region that defines the goepolitical boundary of the project|
+|defaultCheckList|String|The default checklist for the project|
 
 
 ### Project Regions ###
 
 > /api/projectRegions
+
+|Field|Type|Description|
+|-----|----|-----------|
 
 
 ### Project Species ###
@@ -115,14 +132,24 @@ Return a list of projects that allow public participation, along with protocols
 > /api/query/species
 
 
+|Field|Type|Description|
+|-----|----|-----------|
+
+
 ### Species Images ###
 
 > /api/speciesImages
+
+|Field|Type|Description|
+|-----|----|-----------|
 
 
 ### Species Sounds ###
 
 > /api/speciesSounds
+
+|Field|Type|Description|
+|-----|----|-----------|
 
 
 ### Species Maps ###
@@ -130,14 +157,20 @@ Return a list of projects that allow public participation, along with protocols
 
 > /api/speciesMaps
 
+|Field|Type|Description|
+|-----|----|-----------|
 
 ### Species Regions ###
 
 > /api/query/speciesRegions
+
+|Field|Type|Description|
+|-----|----|-----------|
 
 
 ### File Regions ###
 
 > /api/fileRegions
 
-
+|Field|Type|Description|
+|-----|----|-----------|
