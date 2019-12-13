@@ -74,17 +74,19 @@ Response Object:
 |Field|Type|Description|
 |-----|----|-----------|
 |speciesNaming|String|The preferred naming convention (commonName\|scientificName)|
-|speciesSortBy|String|The preferred sorting field (alphabetic\|checklistDefault|)|
+|speciesSortBy|String|The preferred sorting field (alphabetic\|checklistDefault)|
 |lang|String|The preferred language (en\|fr\|es)|
-|excludeNonBreeding|String|Only present if projectId provided: whether to exclude non-breeding species in regions (Y\|N)|
-|excludeRare|String|Only present if projectId provided: whether to exclude rare species regions (Y\|N)|
-|checklistId|Integer|Only present if projectId provided: the checklist id that will be used to deliver species names (not yet implemented)|
-|checklistName|String|Only present if projectId provided: the checklist name that will be used to deliver species names (not yet implemented)|
+|excludeNonBreeding|String|**Only present if projectId provided:** whether to exclude non-breeding species in regions (Y\|N)|
+|excludeRare|String|**Only present if projectId provided:** whether to exclude rare species regions (Y\|N)|
+|checklistId|Integer|**Only present if projectId provided:** the checklist id that will be used to deliver species names (not yet implemented)|
+|checklistName|String|**Only present if projectId provided:** the checklist name that will be used to deliver species names (not yet implemented)|
 
 Note that checklist name might be the same as the defaultChecklist field in the /projects
 entrypoint described below. But if it is different, we **may** use that preferred checklist to
 deliver species taxonomy, rather than the default checklist for the project.
 
+Note that if the user's language prefernce is 'es' (Spanish), the interface should display scientific names, even if the 
+user's naming preference is `commonName`. We do not have Spanish common names in our system.
 
 
 ## Error Responses ##
@@ -120,7 +122,7 @@ Return a list of Dendroica projects.
 |Field|Type|Description|
 |-----|----|-----------|
 |id|Integer|Project id for use in subsequent calls|
-|name|String|Projetc name|
+|name|String|Project name|
 |description|String|Project description|
 |masterRegionId|Integer|The region that defines the goepolitical boundary of the project|
 |defaultCheckList|String|The default checklist for the project|
@@ -132,6 +134,10 @@ Return a list of Dendroica projects.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|id|Integer|Region id|
+|parentegionId|Integer|If the region is a sub-region (e.g.: state/province within a country), this points to the parent region|
+|region|String|Region name|
+|abbrev|String|Abreviation for the region|
 
 
 ### Project Species ###
@@ -141,6 +147,18 @@ Return a list of Dendroica projects.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|id|Integer|Species id|
+|commonName|String|The species common name under the current taxonomic checklist|
+|scientificName|String|The species scientific name under the current taxonomic checklist|
+|mapDescription|String|A text description of the species' range|
+|songDescription|String|A text description of the species' song|
+|checklistOrder|Integer|The species ordering under the current taxonomic checklist|
+
+The species should be presented in the order of the `checklistOrder` field, unless the user's
+preferences specify that the ordering should be alphabetical.
+
+Note that if the user's language prefernce is 'es' (Spanish), the interface should display scientific names, even if the 
+user's naming preference is `commonName`. We do not have Spanish common names in our system.
 
 
 ### Species Images ###
@@ -149,6 +167,12 @@ Return a list of Dendroica projects.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|id|Integer|File id|
+|speciesId|Integer|The species id this file is linked to|
+|url|String|The url suffix to obtain the image file from natureinstruct|
+|source|String|The source of the image (credit)|
+|displayOrder|Integer|The order that the image should be displayed for a given species|
+
 
 
 ### Species Sounds ###
@@ -157,6 +181,15 @@ Return a list of Dendroica projects.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|id|Integer|File id|
+|speciesId|Integer|The species id this file is linked to|
+|url|String|The url suffix to obtain the sound file from natureinstruct|
+|spectrogramUrl|String|The url suffix to obtain the sound file spectrogram from natureinstruct|
+|source|String|The source of the recording (credit)|
+|displayOrder|Integer|The order that the recording should be displayed for a given species|
+
+Note that the `spectrogramUrl` values may include locations that return a 404 error, as we do not have
+spectrograms for every recording.
 
 
 ### Species Maps ###
@@ -166,6 +199,14 @@ Return a list of Dendroica projects.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|id|Integer|File id|
+|speciesId|Integer|The species id this file is linked to|
+|url|String|The url suffix to obtain the map file from natureinstruct|
+|source|String|The source of the map (credit)|
+{description|String|A description of the map (North\|Central\|South\|Americas)|
+|displayOrder|Integer|The order that the map should be displayed for a given species|
+
+
 
 ### Species Regions ###
 
