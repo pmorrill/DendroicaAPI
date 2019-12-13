@@ -132,6 +132,10 @@ Return a list of Dendroica projects.
 
 > /api/projectRegions
 
+Parameters:
+
+> required Integer: projectId
+
 |Field|Type|Description|
 |-----|----|-----------|
 |id|Integer|Region id|
@@ -143,6 +147,10 @@ Return a list of Dendroica projects.
 ### Project Species ###
 
 > /api/query/species
+
+Parameters:
+
+> required Integer: projectId
 
 
 |Field|Type|Description|
@@ -165,6 +173,11 @@ user's naming preference is `commonName`. We do not have Spanish common names in
 
 > /api/speciesImages
 
+Parameters:
+
+> required Integer: projectId
+
+
 |Field|Type|Description|
 |-----|----|-----------|
 |id|Integer|File id|
@@ -178,6 +191,11 @@ user's naming preference is `commonName`. We do not have Spanish common names in
 ### Species Sounds ###
 
 > /api/speciesSounds
+
+Parameters:
+
+> required Integer: projectId
+
 
 |Field|Type|Description|
 |-----|----|-----------|
@@ -197,6 +215,11 @@ spectrograms for every recording.
 
 > /api/speciesMaps
 
+Parameters:
+
+> required Integer: projectId
+
+
 |Field|Type|Description|
 |-----|----|-----------|
 |id|Integer|File id|
@@ -212,6 +235,11 @@ spectrograms for every recording.
 
 > /api/query/speciesRegions
 
+Parameters:
+
+> required Integer: projectId
+
+
 |Field|Type|Description|
 |-----|----|-----------|
 |speciesId|Integer|The species id|
@@ -223,6 +251,11 @@ spectrograms for every recording.
 ### File Regions ###
 
 > /api/fileRegions
+
+Parameters:
+
+> required Integer: projectId
+
 
 |Field|Type|Description|
 |-----|----|-----------|
