@@ -135,7 +135,7 @@ Return a list of Dendroica projects.
 |Field|Type|Description|
 |-----|----|-----------|
 |id|Integer|Region id|
-|parentegionId|Integer|If the region is a sub-region (e.g.: state/province within a country), this points to the parent region|
+|parentRegionId|Integer|If the region is a sub-region (e.g.: state/province within a country), this points to the parent region|
 |region|String|Region name|
 |abbrev|String|Abreviation for the region|
 
@@ -203,7 +203,7 @@ spectrograms for every recording.
 |speciesId|Integer|The species id this file is linked to|
 |url|String|The url suffix to obtain the map file from natureinstruct|
 |source|String|The source of the map (credit)|
-{description|String|A description of the map (North\|Central\|South\|Americas)|
+|description|String|A description of the map (North\|Central\|South\|Americas)|
 |displayOrder|Integer|The order that the map should be displayed for a given species|
 
 
@@ -214,6 +214,10 @@ spectrograms for every recording.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|speciesId|Integer|The species id|
+|regionId|Integer|The region id|
+|nonBreederInRegion|Integer|Whether the species is a non-breeder in the region (0\|1)|
+|rareInRegion|Integer|Whether the species is rare in the region (0\|1)|
 
 
 ### File Regions ###
@@ -222,3 +226,29 @@ spectrograms for every recording.
 
 |Field|Type|Description|
 |-----|----|-----------|
+|fileId|Integer|The file id|
+|regionId|Integer|The region id|
+|displayOrder|Integer|The order that should be used to diaply the file when viewing this region|
+
+Note that `fileId` is unique over all media files (images, sounds, and maps). However, you will never find
+map file id's in the region associations: all species maps should be displayed for a given species
+regardless of region.
+
+For a given species and region, there may be no records in the `fileRegions` data set. If that is so, 
+you should look to see if the region has a `parentRegionId`, and check for `fileRegions` associations with 
+that parent region.
+
+If no region-specific associations are found, then the file `displyOrder` can be used from the `speciesImages`
+and / or `speciesSounds` data.
+
+If a `fileRegion` association has been found, you should:
+
+1. Only display files that occur in the association
+2. Display those files using the displayOrder in the association
+
+It is also important to note that a `fileRegions` association may be present for **images** and not for **sounds**
+(for a given species / region). In that case, the default sounds ordering would be used, while the `fileRegion` ordering
+would be used for the images. And vice-versa.....
+
+
+
