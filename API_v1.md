@@ -42,7 +42,9 @@ Response Object:
 |-----|----|-----------|
 |token|String|The token to use in subsequent calls for this user|
 
-The token lifespan will be set to 24 hours.
+The token lifespan is initially set to 24 hours, however it is extended accordingly on each use. It
+will therefore always be 24 hours from the time of the most recent transaction
+with the API server.
 
 Other fields returned are described in the following entry point response object.
 
@@ -71,12 +73,17 @@ Response Object:
 
 |Field|Type|Description|
 |-----|----|-----------|
-|speciesNaming|String|The preferred naming convnetion (commonName\|scientificName)|
+|speciesNaming|String|The preferred naming convention (commonName\|scientificName)|
 |speciesSortBy|String|The preferred sorting field (alphabetic\|checklistDefault|)|
-|lang|String|The preferred language|
-|excludeNonBreeding|String|Only present if projectId provided: whether to exclude non-breeding species in regions|
-|excludeRare|String|Only present if projectId provided: whether to exclude rare species regions|
-|checklist|String|Only present if projectId provided: the checklist that will be used to deliver species names|
+|lang|String|The preferred language (en\|fr\|es)|
+|excludeNonBreeding|String|Only present if projectId provided: whether to exclude non-breeding species in regions (Y\|N)|
+|excludeRare|String|Only present if projectId provided: whether to exclude rare species regions (Y\|N)|
+|checklistId|Integer|Only present if projectId provided: the checklist id that will be used to deliver species names (not yet implemented)|
+|checklistName|String|Only present if projectId provided: the checklist name that will be used to deliver species names (not yet implemented)|
+
+Note that checklist name might be the same as the defaultChecklist field in the /projects
+entrypoint described below. But if it is different, we **may** use that preferred checklist to
+deliver species taxonomy, rather than the default checklist for the project.
 
 
 
