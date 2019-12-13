@@ -107,7 +107,7 @@ A list of current error codes / messages can be pulled from here:
 
 
 All data queries require a `token` parameter, returned earlier by the Authentication entrypoint. All
-data queries **except** the first (/project) also require a `projectId` parameter.
+data queries **except** the first (/api/projects) also require a `projectId` parameter.
 
 All results are returned as JSON objects, suitable for processing as 'data frames'.
 
@@ -131,6 +131,8 @@ Return a list of Dendroica projects.
 
 ### Project Regions ###
 
+Return a list of regions within a project.
+
 > /api/projectRegions
 
 Parameters:
@@ -146,6 +148,8 @@ Parameters:
 
 
 ### Project Species ###
+
+Return a list of species for a given project.
 
 > /api/query/species
 
@@ -176,6 +180,8 @@ user's naming preference is `commonName`. We do not have Spanish common names in
 
 ### Species Images ###
 
+Return a list of images for the species within a project.
+
 > /api/speciesImages
 
 Parameters:
@@ -194,6 +200,8 @@ Parameters:
 
 
 ### Species Sounds ###
+
+Return a list of sounds for the species within a project.
 
 > /api/speciesSounds
 
@@ -217,6 +225,7 @@ spectrograms for every recording.
 
 ### Species Maps ###
 
+Return a list of maps for the species within a project.
 
 > /api/speciesMaps
 
@@ -238,6 +247,8 @@ Parameters:
 
 ### Species Regions ###
 
+Return a list of regions relevant for the species within a project.
+
 > /api/query/speciesRegions
 
 Parameters:
@@ -254,6 +265,8 @@ Parameters:
 
 
 ### File Regions ###
+
+Return a list of associations between files and regions for the species within a project.
 
 > /api/fileRegions
 
