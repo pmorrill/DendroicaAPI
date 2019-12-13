@@ -106,7 +106,8 @@ A list of current error codes / messages can be pulled from here:
 ## Data Querying ##
 
 
-All data queries require a token parameter, returned earlier by the Authentication entrypoint.
+All data queries require a `token` parameter, returned earlier by the Authentication entrypoint. All
+data queries **except** the first (/project) also require a `projectId` parameter.
 
 All results are returned as JSON objects, suitable for processing as 'data frames'.
 
@@ -161,6 +162,10 @@ Parameters:
 |mapDescription|String|A text description of the species' range|
 |songDescription|String|A text description of the species' song|
 |checklistOrder|Integer|The species ordering under the current taxonomic checklist|
+
+The species data is constructed according to the rules of the default taxonomic checklist for the 
+project. However, we **may** change this instead use the user's preference 9stored in dendroica web tools)
+to build the species list.
 
 The species should be presented in the order of the `checklistOrder` field, unless the user's
 preferences specify that the ordering should be alphabetical.
